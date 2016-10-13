@@ -8,7 +8,4 @@ Vagrant/VirtualBox are run from a Ubuntu 14.04 LTS host in this case.
 * VirtualBox 4.3.36 https://www.virtualbox.org/
 
 <h3>EXECUTION:</h3>
-# Full discussion of commands/prerequisites in "./Vagrantfile".
-* $ vagrant box add centos/7
-* $ vagrant up
-* $ vagrant global-status
+Full discussion of commands/prerequisites in "./Vagrantfile".
