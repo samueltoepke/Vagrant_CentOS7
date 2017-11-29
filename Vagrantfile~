@@ -1,4 +1,4 @@
-## Copyright 2017 Samuel Lee Toepke
+## Copyright 2016 Samuel Lee Toepke
 ## 
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -15,13 +15,13 @@
 
 # Samuel Lee Toepke
 # samueltoepke@gmail.com
-# Fall 2017
+# Fall 2016
 # Vagrantfile
 #
 # This Vagrantfile uses the default centos/7 box from "https://atlas.hashicorp.com/centos/boxes/7/".
 # Various tasks are run to create an updated/secure CentOS development environment with a GUI, virtualized on VirtualBox.
 # 
-# Dependencies: VirtualBox 5.2.0, Vagrant 2.0.1
+# Dependencies: VirtualBox 4.3.36+, Vagrant 1.8.6+
 # Base OS: Ubuntu 14.04 LTS, any modern Linux distribution with Vagrant/VirtualBox should work.
 #
 # Standard login for box (uid/pwd):(root/vagrant)
@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
   # 0. Set Variables
   user_name = "NewUser"
   user_pwd  = "newuserabc123"
-  vbox_vers = "5.1.30" # Using VirtualBox 5.2.0 but VBoxGuestAdditions display isn't working. 5.1.30 VBGA works just fine.
+  vbox_vers = "4.3.36"
  
   # 1. Configure VirtualBox.
   config.vm.box = "centos/7"
@@ -70,7 +70,9 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sed -i 's/^#PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config" # Disable root login from SSH.
 
   # 4. Install "wget", Add "Extra Packages for Enterprise Linux".
-  config.vm.provision "shell", inline: "yum -y install wget epel-release"
+  config.vm.provision "shell", inline: "yum -y install wget"
+  config.vm.provision "shell", inline: "wget http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-8.noarch.rpm"
+  config.vm.provision "shell", inline: "rpm -ivh epel-release-7-8.noarch.rpm"
   
   # 5. Update/Upgrade The System.
   config.vm.provision "shell", inline: "yum -y update"
